@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 appname = "AI Librarian"
 version = "0.0.1"
@@ -13,8 +13,20 @@ def index():
 def credit():
     return render_template("credit.html", title= " ".join([appname, version]))
 
-@app.route("/api/query", methods=["POST"])
+def welcome_message():
+    return "AI司書(" + version + ") のチャットルームへようこそ！何でも話しかけてみてください！"
+
+
+@app.route("/api/query", methods=["POST", "GET"])
 def api_answer():
+    if request.args:#GET (ping)
+        if request.args["ping"]:
+            return welcome_message()
+
+    if request.form:#Chat input or API
+        query = request.form["userInput"]
+        return query + ": と解釈しました。返答を考えています…"
+
     return "test"
 
 
