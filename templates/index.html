@@ -41,13 +41,7 @@
             </div>
             <div class="footer_controller">
               <div class="image cls_swing" style="width: 20%; bottom:-5px" id="id_figure">
-                <img src=" img/g01_default.png"/>
-                <img src=" img/g01_fluster.png" style="display:none"/>
-                <img src=" img/g01_high.png" style="display:none"/>
-                <img src=" img/g01_low.png" style="display:none"/>
-                <img src=" img/g01_point.png" style="display:none"/>
-                <img src=" img/g01_question.png" style="display:none"/>
-                <img src=" img/g01_smile.png" style="display:none"/>
+                <!-- <img src=".."> jsで追加 -->
               </div>
               <form id="input_chat" method="POST" action="api/query">
                 <div class="field has-addons">
@@ -132,6 +126,17 @@
         }
       })
       document.addEventListener("DOMContentLoaded", function(event){
+        //画像を読み込む
+        var imglist = ["img/g01_default.png", "img/g01_fluster.png", "img/g01_high.png", "img/g01_low.png", "img/g01_point.png", "img/g01_question.png", "img/g01_smile.png"]
+        var container = document.getElementById("id_figure");
+        for(var i=0; i<imglist.length; ++i){
+          var img = document.createElement("img");
+          img.src = imglist[i];
+          img.style = "display:none";
+          container.appendChild(img);
+        }
+        $(container.children[0]).show();
+
         //hello
         $.ajax({
           url : "api/query", //Formのアクションを取得して指定する
